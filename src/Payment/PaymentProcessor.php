@@ -1,12 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Payment;
 
-class PaymentProcessor implements PaymentInterface
-{
+use App\CalculatePrice\CalculatePriceWorkflow;
+use App\DTO\PurchaseDTO;
 
-    public function pay(float $amount): void
+class PaymentProcessor
+{
+    public function __construct(
+        private readonly PaymentProcessorFactory $processorFactory
+    )
     {
-        // TODO: Implement pay() method.
+    }
+
+    public function process(PurchaseDTO $data): void
+    {
+
+
+        $paymentProcessor = $this->processorFactory->createPaymentProcessor($data->paymentProcessor);
+
+        $paymentProcessor->pay(2500);
     }
 }

@@ -1,14 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Payment\Adapters;
 
 use App\Exceptions\PaymentProcessorException;
-use App\Payment\PaymentInterface;
+use App\Payment\PaymentProcessorInterface;
 use Exception;
 use Systemeio\TestForCandidates\PaymentProcessor\PaypalPaymentProcessor;
-use Systemeio\TestForCandidates\PaymentProcessor\StripePaymentProcessor;
 
-class PayPalPaymentProcessorAdapter implements PaymentInterface
+class PayPalPaymentProcessorAdapterProcessor implements PaymentProcessorInterface
 {
     /**
      * @param PaypalPaymentProcessor $processor
@@ -23,7 +24,7 @@ class PayPalPaymentProcessorAdapter implements PaymentInterface
         try {
             $this->processor->pay((int)$amount);
         } catch (Exception $e) {
-            throw new PaymentProcessorException();
+            throw new PaymentProcessorException($e->getMessage());
         }
     }
 }

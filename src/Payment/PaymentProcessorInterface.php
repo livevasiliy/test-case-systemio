@@ -2,7 +2,7 @@
 
 namespace App\Payment;
 
-interface PaymentInterface
+interface PaymentProcessorInterface
 {
     public function pay(float $amount): void;
 }

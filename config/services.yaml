@@ -20,17 +20,26 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    # Register as services
+    Systemeio\TestForCandidates\PaymentProcessor\PaypalPaymentProcessor:
+    Systemeio\TestForCandidates\PaymentProcessor\StripePaymentProcessor:
 
-    App\CalculatePrice\CalculatePriceWorkflow:
-        arguments:
-            $entityManager: '@doctrine.orm.entity_manager'
 
-    App\Payment\Adapters\StripePaymentProcessorAdapter:
-        arguments:
-            $processor: StripePaymentProcessor::class
 
-    App\Payment\Adapters\PayPalPaymentProcessorAdapter:
+    app.payment_processor.paypal:
+        class: App\Payment\Adapters\StripePaymentProcessorAdapterProcessor
         arguments:
-            $processor: PaypalPaymentProcessor::class
+            $processor: '@Systemeio\TestForCandidates\PaymentProcessor\StripePaymentProcessor'
+
+    app.payment_processor.stripe:
+        class: App\Payment\Adapters\PayPalPaymentProcessorAdapterProcessor
+        arguments:
+            $processor: '@Systemeio\TestForCandidates\PaymentProcessor\PaypalPaymentProcessor'
+
+    app.payment_processor_factory:
+        class: App\Payment\PaymentProcessorFactory
+        arguments:
+            - '@app.payment_processor.paypal'
+            - '@app.payment_processor.stripe'
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
