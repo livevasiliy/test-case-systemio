@@ -12,13 +12,17 @@ class CouponService
 {
     public function __construct(private readonly EntityManagerInterface $entityManager) {}
 
-    public function getCouponByCode(string $couponCode): mixed
+    public function getCouponByCode(?string $couponCode): mixed
     {
-        $coupon = $this->entityManager->getRepository(Coupon::class)->findOneBy(['code' => $couponCode]);
+        if ($couponCode) {
+            $coupon = $this->entityManager->getRepository(Coupon::class)->findOneBy(['code' => $couponCode]);
 
-        if ($coupon === null) {
-            throw new InvalidArgumentException('Coupon not found');
+            if ($coupon === null) {
+                throw new InvalidArgumentException('Coupon not found');
+            }
+            return $coupon;
         }
-        return $coupon;
+
+        return null;
     }
 }

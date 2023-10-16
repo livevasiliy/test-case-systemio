@@ -25,6 +25,13 @@ class Coupon
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?float $discountValue = null;
 
+    public function __construct(?string $code, ?CouponType $couponType, ?float $discountValue)
+    {
+        $this->code = $code;
+        $this->couponType = $couponType;
+        $this->discountValue = $discountValue;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

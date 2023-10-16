@@ -12,7 +12,7 @@ class CalculatePriceDTO extends AbstractDTO
 
     public string $taxNumber;
 
-    public string $couponCode;
+    public ?string $couponCode;
 
     public function __construct(int $product, string $taxNumber, ?string $couponCode)
     {

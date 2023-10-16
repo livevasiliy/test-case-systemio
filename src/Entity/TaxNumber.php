@@ -19,6 +19,13 @@ class TaxNumber
     #[ORM\Column(length: 255)]
     private ?string $mask = null;
 
+    public function __construct(?string $taxCode, ?string $mask)
+    {
+        $this->taxCode = $taxCode;
+        $this->mask = $mask;
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;

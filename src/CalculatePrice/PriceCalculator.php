@@ -46,13 +46,15 @@ class PriceCalculator
         return ($amount * $percent) / 100;
     }
 
-    public function getDiscountValue(Coupon $coupon, float $amount): float
+    public function getDiscountValue(?Coupon $coupon, float $amount): float
     {
         $discount = 0.0;
-        if ($coupon->getCouponType()->getName() === CouponType::PERCENT_TYPE_VALUE) {
-            $discount = $this->getPercent($amount, $coupon->getDiscountValue());
-        } elseif ($coupon->getCouponType()->getName() === CouponType::FIXED_TYPE_VALUE) {
-            $discount = $coupon->getDiscountValue();
+        if ($coupon) {
+            if ($coupon->getCouponType()->getName() === CouponType::PERCENT_TYPE_VALUE) {
+                $discount = $this->getPercent($amount, $coupon->getDiscountValue());
+            } elseif ($coupon->getCouponType()->getName() === CouponType::FIXED_TYPE_VALUE) {
+                $discount = $coupon->getDiscountValue();
+            }
         }
         return (float) $discount;
     }
