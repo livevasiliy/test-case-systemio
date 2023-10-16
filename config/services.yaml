@@ -20,5 +20,17 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+
+    App\CalculatePrice\CalculatePriceWorkflow:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+
+    App\Payment\Adapters\StripePaymentProcessorAdapter:
+        arguments:
+            $processor: StripePaymentProcessor::class
+
+    App\Payment\Adapters\PayPalPaymentProcessorAdapter:
+        arguments:
+            $processor: PaypalPaymentProcessor::class
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
