@@ -30,7 +30,7 @@ class CalculateController
 
             return new JsonResponse($result);
         } catch (Exception $exception) {
-            return new JsonResponse($exception->getMessage(), Response::HTTP_BAD_REQUEST);
+            return new JsonResponse(['errors' => $exception->getMessage()], Response::HTTP_BAD_REQUEST);
         }
     }
 }
