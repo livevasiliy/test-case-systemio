@@ -17,15 +17,14 @@ class PurchaseDTO extends AbstractDTO
 
     public string $couponCode;
 
+    #[Assert\NotBlank]
     public string $paymentProcessor;
 
-    public function __construct(int $product, string $taxNumber, string $couponCode, string $paymentProcessor)
+    public function __construct(int $product, string $taxNumber, ?string $couponCode, string $paymentProcessor)
     {
         $this->product = $product;
         $this->taxNumber = $taxNumber;
         $this->couponCode = $couponCode;
         $this->paymentProcessor = $paymentProcessor;
     }
-
-
 }
